@@ -1,0 +1,28 @@
+
+  <div class="container my-5">
+    <div class="details-card">
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+                <img class="img-fluid details-img" src="https://image.tmdb.org/t/p/w300{{movieSelected.poster_path}}">
+            </div>
+            <div class="col-md-6 col-sm-12 description-container p-5">
+                <div class="main-description">
+                    <h3>{{movieSelected.original_title}}</h3>
+                    <ul>
+                        <li>Genres : {{movieSelected.genres[0].name}}, {{movieSelected.genres[1].name}}</li>
+                        <li>Date de sortie : {{movieSelected.release_date}}</li>
+                        <li>Budget : {{movieSelected.budget}}$</li>
+                    </ul>
+                    <hr>
+                    <div style="clear:both"></div>
+                    <hr>
+                    <p class="product-title mt-4 mb-1">About this movie</p>
+                    <p class="product-description mb-4">
+                        {{movieSelected.overview}}
+                    </p>
+
+
+                </div>
+
+            </div>
+        </div>
