@@ -9,11 +9,15 @@ terraform {
   required_version = ">= 1.1.0"  
 }
 
-# Configure the Azure provider
 provider "azurerm" {
   features {}
+  skip_provider_registration = true
+  version = "=2.0.0"
+  client_id = var.client_id
+  client_secret = var.client_secret
+  tenant_id = var.tenant_id
+  subscription_id = var.subscription_id
 }
-
 # Generate a random integer to create a globally unique name
 resource "random_integer" "ri" {
   min = 10000
