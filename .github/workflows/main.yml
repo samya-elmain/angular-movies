@@ -29,33 +29,33 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/movies:latest
-#   deploy:
-#     needs: build
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Checkout
-#         uses: actions/checkout@v3
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
 
-#       - name: Set up Terraform
-#         uses: hashicorp/setup-terraform@v1
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v1
 
-#       - name: Terraform Init
-#         run: terraform init
+      - name: Terraform Init
+        run: terraform init
 
-#       - name: Terraform Plan
-#         run: terraform plan -out=tfplan
+      - name: Terraform Plan
+        run: terraform plan -out=tfplan
 
-#       - name: Terraform Apply
-#         run: terraform apply tfplan -auto-approve
+      - name: Terraform Apply
+        run: terraform apply tfplan -auto-approve
 
-#       - name: Set up Terraform environment
-#         run: |
-#           echo ${{ secrets.TF_VAR_ARM_CLIENT_ID }} > ARM_CLIENT_ID
-#           echo ${{ secrets.TF_VAR_ARM_CLIENT_SECRET }} > ARM_CLIENT_SECRET
-#           echo ${{ secrets.TF_VAR_ARM_SUBSCRIPTION_ID }} > ARM_SUBSCRIPTION_ID
-#           echo ${{ secrets.TF_VAR_ARM_TENANT_ID }} > ARM_TENANT_ID
+      - name: Set up Terraform environment
+        run: |
+          echo ${{ secrets.TF_VAR_ARM_CLIENT_ID }} > ARM_CLIENT_ID
+          echo ${{ secrets.TF_VAR_ARM_CLIENT_SECRET }} > ARM_CLIENT_SECRET
+          echo ${{ secrets.TF_VAR_ARM_SUBSCRIPTION_ID }} > ARM_SUBSCRIPTION_ID
+          echo ${{ secrets.TF_VAR_ARM_TENANT_ID }} > ARM_TENANT_ID
 
-#       - name: Configure Azure credentials
-#         run: |
-#           az login --service-principal --username "$(cat ARM_CLIENT_ID)" --password "$(cat ARM_CLIENT_SECRET)" --tenant "$(cat ARM_TENANT_ID)"
-#           az account set --subscription "$(cat ARM_SUBSCRIPTION_ID)"
+      - name: Configure Azure credentials
+        run: |
+          az login --service-principal --username "$(cat ARM_CLIENT_ID)" --password "$(cat ARM_CLIENT_SECRET)" --tenant "$(cat ARM_TENANT_ID)"
+          az account set --subscription "$(cat ARM_SUBSCRIPTION_ID)"
