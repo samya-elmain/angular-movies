@@ -44,11 +44,12 @@ jobs:
       - name: Set working directory
         run: cd ../..
 
-      - name: Terraform Init
         env:
           TF_VAR_client_id: ${{ secrets.TF_VAR_ARM_CLIENT_ID }}
           TF_VAR_client_secret: ${{ secrets.TF_VAR_ARM_CLIENT_SECRET }}
           TF_VAR_tenant_id: ${{ secrets.TF_VAR_ARM_TENANT_ID }}
+          
+      - name: Terraform Init
         run: terraform init
 
       - name: Terraform Plan
