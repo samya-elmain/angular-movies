@@ -12,7 +12,7 @@ terraform {
 provider "azurerm" {
   features {}
   skip_provider_registration = true
-  version = "=2.0.0"
+  version = "=3.57.0"
   client_id = var.client_id
   client_secret = var.client_secret
   tenant_id = var.tenant_id
