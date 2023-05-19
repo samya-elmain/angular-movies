@@ -53,7 +53,7 @@ jobs:
       - name: Terraform Apply
         run: terraform apply tfplan -auto-approve
 
-      - name: Set up Terraform environment
+      - name: Configure Azure credentials
         run: |
           echo ${{ secrets.AZURE_CREDENTIALS }} > azure_credentials.json
           echo ${{ secrets.TF_VAR_ARM_CLIENT_ID }} > ARM_CLIENT_ID
@@ -61,7 +61,13 @@ jobs:
           echo ${{ secrets.TF_VAR_ARM_SUBSCRIPTION_ID }} > ARM_SUBSCRIPTION_ID
           echo ${{ secrets.TF_VAR_ARM_TENANT_ID }} > ARM_TENANT_ID
 
-      - name: Configure Azure credentials
+      - name: Set up Terraform environment
+        env:
+          AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
+          ARM_CLIENT_ID: ${{ secrets.TF_VAR_ARM_CLIENT_ID }}
+          ARM_CLIENT_SECRET: ${{ secrets.TF_VAR_ARM_CLIENT_SECRET }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.TF_VAR_ARM_SUBSCRIPTION_ID }}
+          ARM_TENANT_ID: ${{ secrets.TF_VAR_ARM_TENANT_ID }}
         run: |
-          az login --service-principal --username "$(cat ARM_CLIENT_ID)" --password "$(cat ARM_CLIENT_SECRET)" --tenant "$(cat ARM_TENANT_ID)"
-          az account set --subscription "$(cat ARM_SUBSCRIPTION_ID)"
+          az login --service-principal --username $ARM_CLIENT_ID --password $ARM_CLIENT_SECRET --tenant $ARM_TENANT_ID
+          az account set --subscription $ARM_SUBSCRIPTION_ID
