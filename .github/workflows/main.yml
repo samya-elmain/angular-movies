@@ -42,7 +42,7 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: Set working directory
-        run: cd ./main.tf
+        run: cd ../..
 
       - name: Terraform Init
         run: terraform init
