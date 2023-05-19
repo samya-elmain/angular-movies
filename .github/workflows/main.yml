@@ -36,8 +36,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Set up Terraform
-        uses: hashicorp/setup-terraform@v1
+      - name: Set up Azure CLI
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Set working directory
+        run: cd ./main.tf
 
       - name: Terraform Init
         run: terraform init
@@ -50,6 +55,7 @@ jobs:
 
       - name: Set up Terraform environment
         run: |
+          echo ${{ secrets.AZURE_CREDENTIALS }} > azure_credentials.json
           echo ${{ secrets.TF_VAR_ARM_CLIENT_ID }} > ARM_CLIENT_ID
           echo ${{ secrets.TF_VAR_ARM_CLIENT_SECRET }} > ARM_CLIENT_SECRET
           echo ${{ secrets.TF_VAR_ARM_SUBSCRIPTION_ID }} > ARM_SUBSCRIPTION_ID
