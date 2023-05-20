@@ -56,10 +56,10 @@ jobs:
         run: terraform init
 
       - name: Terraform Plan
-        run: terraform plan -out=tfplan
+        run: terraform plan 
 
       - name: Terraform Apply
-        run: terraform apply tfplan -auto-approve
+        run: terraform apply -auto-approve
 
       - name: Set up Terraform environment
         env:
